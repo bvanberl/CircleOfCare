@@ -1,0 +1,10 @@
+var app = angular.module('circleofcare',
+  ['ngRoute',
+  'ngMaterial',
+  'ngAnimate',
+  'ngTouch',
+  'ngMessages',
+  'ngFileUpload',
+  'appRoutes',
+  'HomeCtrl',
+  'FileUploadCtrl']);
