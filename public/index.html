@@ -34,6 +34,10 @@
     <script src="js/controllers/RegisterCtrl.js"></script>
     <script src="js/controllers/ProfileCtrl.js"></script>
     <script src="js/controllers/FileUploadCtrl.js"></script>
+    <script src="js/controllers/DashboardCtrl.js"></script>
+    <script src="js/controllers/PatientService.js"></script>
+    <script src="js/controllers/TextMessageService.js"></script>
+    <script src="js/controllers/ImageMessageService.js"></script>
 
     <script src="js/appRoutes.js"></script>
 	  <script src="/libs/angular-aria/angular-aria.js"></script>
@@ -50,8 +54,17 @@
 </head>
 <body ng-app="circleofcare" ng-cloak>
 
+  <md-content>
+  <md-nav-bar>
+    <md-nav-item md-nav-href="/login" name="Login">
+      Login
+    </md-nav-item>
+    <md-nav-item md-nav-href="/register" name="Register">
+      Register
+    </md-nav-item>
+  </md-nav-bar>
   <!-- ANGULAR DYNAMIC CONTENT -->
   <div ng-view></div>
-
+  </md-content>
 </body>
 </html>

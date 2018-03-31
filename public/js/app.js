@@ -7,4 +7,8 @@ var app = angular.module('circleofcare',
   'ngFileUpload',
   'appRoutes',
   'HomeCtrl',
+  'DashboardCtrl',
+  'PatientService',
+  'TextMessageService',
+  'ImageMessageService',
   'FileUploadCtrl']);

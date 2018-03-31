@@ -1,0 +1,23 @@
+<md-content layout-padding>
+<div>
+  <form ng-submit="vm.onSubmit()">
+    <div class="form-group">
+      <label for="name">Full name</label>
+      <input type="text" class="form-control" id="name" placeholder="Enter your name" ng-model="vm.credentials.name">
+    </div>
+    <div class="form-group">
+      <label for="email">Email address</label>
+      <input type="email" class="form-control" id="email" placeholder="Enter email" ng-model="vm.credentials.email">
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" class="form-control" id="password" placeholder="Password" ng-model="vm.credentials.password">
+    </div>
+    <div class="form-group">
+      <label for="profession">Profession</label>
+      <input type="text" class="form-control" id="name" placeholder="Enter your profession." ng-model="vm.credentials.profession">
+    </div>
+    <md-button type="submit" class="md-raised md-accent"><b>Register</b></md-button>
+  </form>
+</div>
+</md-content>

@@ -2,7 +2,8 @@ var mongoose = require( 'mongoose' );
 var crypto = require('crypto');
 var jwt = require('jsonwebtoken');
 
-var userSchema = new mongoose.Schema({
+var providerSchema = new mongoose.Schema({
+  _id: mongoose.Schema.Types.ObjectId,
   email: {
     type: String,
     unique: true,
@@ -12,21 +13,25 @@ var userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  profession: {
+    type: String,
+    required: true
+  },
   hash: String,
   salt: String
 });
 
-userSchema.methods.setPassword = function(password){
+providerSchema.methods.setPassword = function(password){
   this.salt = crypto.randomBytes(16).toString('hex');
   this.hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64).toString('hex');
 };
 
-userSchema.methods.validPassword = function(password) {
+providerSchema.methods.validPassword = function(password) {
   var hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64).toString('hex');
   return this.hash === hash;
 };
 
-userSchema.methods.generateJwt = function() {
+providerSchema.methods.generateJwt = function() {
   var expiry = new Date();
   expiry.setDate(expiry.getDate() + 7);
 
@@ -38,4 +43,4 @@ userSchema.methods.generateJwt = function() {
   }, "MY_SECRET"); // DO NOT KEEP YOUR SECRET IN THE CODE!
 };
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('Provider', providerSchema);

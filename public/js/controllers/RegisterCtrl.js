@@ -3,13 +3,12 @@
   angular
     .module('circleofcare')
     .controller('RegisterCtrl', RegisterCtrl);
-
   RegisterCtrl.$inject = ['$rootScope', '$location', 'authentication'];
   function RegisterCtrl($rootScope, $location, authentication) {
 
-    if(!authentication.isLoggedIn()){
+    /*if(!authentication.isLoggedIn()){
       $location.path('/');
-    }
+    }*/
 
     $rootScope.logout = function(){
       authentication.logout();
@@ -20,7 +19,8 @@
     vm.credentials = {
       name : "",
       email : "",
-      password : ""
+      password : "",
+      profession : "",
     };
 
     vm.onSubmit = function () {

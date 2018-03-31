@@ -13,14 +13,7 @@
     }
 
     var vm = this;
-
-    vm.user = {};
-
-    meanData.getProfile()
-      .then(function(data) {
-        vm.user = data.data;
-        console.log(vm.user);
-      });
+    vm.user = meanData.getProfile()
   }
 
 })();

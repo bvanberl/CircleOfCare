@@ -20,6 +20,10 @@ angular.module('appRoutes', ['ngRoute']).config(['$routeProvider', '$locationPro
             templateUrl: 'views/profile.html',
             controller: 'ProfileCtrl',
             controllerAs: 'vm'
+        })
+        .when('/dashboard', {
+            templateUrl: 'views/dashboard.html',
+            controller: 'DashboardCtrl'
         });
 
     $locationProvider.html5Mode(true);
