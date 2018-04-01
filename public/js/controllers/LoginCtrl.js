@@ -4,8 +4,8 @@
   .module('circleofcare')
   .controller('LoginCtrl', LoginCtrl);
 
-  LoginCtrl.$inject = ['$rootScope', '$location', 'authentication'];
-  function LoginCtrl($rootScope, $location, authentication) {
+  LoginCtrl.$inject = ['$rootScope', '$location', '$window', 'authentication'];
+  function LoginCtrl($rootScope, $location, $window, authentication) {
     var vm = this;
 
     $rootScope.logout = function(){
@@ -24,7 +24,8 @@
       authentication
         .login(vm.credentials)
         .then(function(){
-          $location.path('/');
+          $location.path('/dashboard');
+          $window.location.reload();
         });
     };
   }

@@ -1,7 +1,8 @@
 var mongoose = require('mongoose');
 
 module.exports = mongoose.model('Conversation', {
-    patient : {type: mongoose.Schema.Types.ObjectId, ref: 'Patient', default: 'no-name'},
-    providers : { type : Array , default : [] },
-    messages : {type: Array, default: []}
+    patient : { type : String, default : ""},
+    //providers : { type : Array , default : [] },
+    providers : [{ type : mongoose.Schema.Types.ObjectId , ref : 'Provider' }],
+    messages : [{ type : mongoose.Schema.Types.ObjectId , ref : 'TextMessage' }]
 });

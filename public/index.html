@@ -12,7 +12,7 @@
     <script src="/libs/jquery/dist/jquery.min.js"></script>
     <script src="/libs/bootstrap/dist/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style.css"> <!-- custom styles -->
+    <link rel="stylesheet" href="css/styles.css"> <!-- custom styles -->
     <link rel="stylesheet" href="css/atc-style-blue.css">
     <link rel="stylesheet" href="/libs/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.css">
     <link rel="stylesheet" href="/libs/angular-bootstrap/ui-bootstrap-tpls.css">
@@ -29,15 +29,18 @@
     <script src="js/config.js"></script>
     <script src="js/services/AuthenticationService.js"></script>
     <script src="js/services/DataService.js"></script>
+    <script src="js/services/PatientService.js"></script>
+    <script src="js/services/TextMessageService.js"></script>
+    <script src="js/services/ImageMessageService.js"></script>
+    <script src="js/services/ConversationService.js"></script>
+    <script src="js/services/ProviderService.js"></script>
+    <script src="js/controllers/NavCtrl.js"></script>
     <script src="js/controllers/HomeCtrl.js"></script>
     <script src="js/controllers/LoginCtrl.js"></script>
     <script src="js/controllers/RegisterCtrl.js"></script>
     <script src="js/controllers/ProfileCtrl.js"></script>
     <script src="js/controllers/FileUploadCtrl.js"></script>
     <script src="js/controllers/DashboardCtrl.js"></script>
-    <script src="js/controllers/PatientService.js"></script>
-    <script src="js/controllers/TextMessageService.js"></script>
-    <script src="js/controllers/ImageMessageService.js"></script>
 
     <script src="js/appRoutes.js"></script>
 	  <script src="/libs/angular-aria/angular-aria.js"></script>
@@ -55,14 +58,19 @@
 <body ng-app="circleofcare" ng-cloak>
 
   <md-content>
-  <md-nav-bar>
-    <md-nav-item md-nav-href="/login" name="Login">
-      Login
-    </md-nav-item>
-    <md-nav-item md-nav-href="/register" name="Register">
-      Register
-    </md-nav-item>
-  </md-nav-bar>
+  <md-tool-bar ng-controller="NavCtrl" class="md-hue-2">
+      <div class="md-toolbar-tools">
+      <md-button ng-show="{{!isLoggedIn}}" ng-href="/login" name="Login">
+        Log in
+      </md-button>
+      <md-button ng-show="{{isLoggedIn}}" ng-click="logout()" name="Login">
+        Log out
+      </md-button>
+      <md-button ng-href="/register" name="Register">
+        Register
+      </md-button>
+    </div>
+  </md-tool-bar>
   <!-- ANGULAR DYNAMIC CONTENT -->
   <div ng-view></div>
   </md-content>

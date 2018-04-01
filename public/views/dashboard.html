@@ -1,0 +1,47 @@
+<md-content layout-padding>
+  <div ng-cloak layout-gt-sm="row">
+    <div flex-gt-sm="30" flex layout="column">
+      <div layout="row">
+        <h2>Patients</h2>
+        <span flex></span>
+        <md-button class="md-fab md-mini" aria-label="New Patient" ng-click="openNewPatientModal()">
+          <i class="fa fa-plus"></i>
+        </md-button>
+      </div>
+      <md-button class="md-raised" ng-repeat="c in conversations" ng-click="openConversation($index)">{{c.patient}}</md-button>
+    </div>
+    <div flex-gt-sm="70" flex>
+      <h2>Conversation</h2>
+      <p>
+        Members: <i><span ng-repeat = "p in providersToDisplay">{{p.name}}<span ng-if="!$last">, </span></span></i>
+        <md-menu>
+          <md-button class="md-flat md-primary md-hue-1" aria-label="Add Member" ng-mouseenter="$mdMenu.open()">
+            <i class="fa fa-plus"></i>  Add Member
+          </md-button>
+          <md-menu-content width="4" ng-mouseleave="$mdMenu.close()">
+            <md-menu-item ng-repeat="p in allProviders">
+              <md-button ng-click="addProviderToConversation($index)">
+                {{ p.name }}
+              </md-button>
+            </md-menu-item>
+          </md-menu-content>
+        </md-menu>
+
+      </p>
+      <md-list class="md-dense" flex id="conversation">
+        <md-list-item class="md-2-line" ng-repeat="m in msgsToDisplay">
+         <div class="md-list-item-text">
+           <h3>{{m.datetime}}</h3>
+           <p>{{m.message}}</p>
+         </div>
+       </md-list-item>
+     </md-list>
+     <md-divider></md-divider>
+     <br/>
+      <md-input-container ng-show="conversationDisplayed" class="md-block">
+        <input ng-model="newTextMsg" placeholder="Type new message here..."></input>
+        <md-button ng-click="submitTextMessage()" class="md-raised md-primary">Send</md-button>
+      </md-input-container>
+    </div>
+  </div>
+</md-content>

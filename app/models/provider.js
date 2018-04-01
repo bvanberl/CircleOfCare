@@ -17,6 +17,7 @@ var providerSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  conversations: [],
   hash: String,
   salt: String
 });

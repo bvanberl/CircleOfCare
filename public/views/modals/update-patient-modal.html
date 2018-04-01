@@ -1,0 +1,32 @@
+<md-dialog flex="50" id="new-patient-modal" layout-padding>
+  <form ng-cloak>
+    <div class="imgcontainer">
+      <span ng-click="cancel()" class="close" title="Close Modal">&times;</span>
+      <h1 class="modal-title" align="center">Update Patient</h1>
+    </div>
+    <div>
+      <div class="form-group">
+        <label><b>Patient name</b></label>
+        <input class="form-control" ng-model="ipatientname" ng-focus="focused"></textarea>
+      </div>
+      <div class="modal-footer">
+        <div>
+          <div layout-gt-sm="row">
+            <div flex-gt-sm="50">
+              <button ng-click="cancel()" class="btn btn-block btn-danger">
+                <span class="glyphicon glyphicon-remove"></span>
+                   Cancel
+              </button>
+            </div>
+            <div flex-gt-sm="50">
+              <button class="btn btn-block btn-success" id="submitbutton" ng-click="submitData()">
+                <span class="glyphicon glyphicon-plus"></span>
+                   Submit
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</md-dialog>

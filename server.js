@@ -18,6 +18,10 @@ var auth = jwt({
 
 // COLLECTIONS =================================================
 var Provider     = require('./app/models/provider');
+var Patient   = require('./app/models/patient');
+var TextMessage     = require('./app/models/text-msg');
+var ImageMessage     = require('./app/models/img-msg');
+var Conversation     = require('./app/models/conversation');
 
 // DB SETUP ======================================================
 var db = require('./config/db');
@@ -75,7 +79,6 @@ router.route('/register')
       provider.email = req.body.email;
       provider.profession = req.body.profession;
       provider.setPassword(req.body.password);
-      console.log(provider);
       provider.save(function(err) {
         console.log(err);
         var token;
@@ -90,7 +93,6 @@ router.route('/register')
 router.route('/login')
   .post(function(req, res) {
     passport.authenticate('local', function(err, provider, info){
-      console.log(provider.email);
       var token;
       // If Passport throws/catches an error
       if (err) {
@@ -134,12 +136,14 @@ router.route('/text-messages')
       var textMessage = new TextMessage();
       textMessage._id = new mongoose.Types.ObjectId();
       textMessage.message = req.body.message;
-      textMessage.datetime = req.body.datetime;
+      var date = new Date();
+      textMessage.datetime = date;
       textMessage.postedBy = req.body.postedBy;
       textMessage.save(function(err) {
           if (err)
               res.send(err);
-          res.json({ message: 'TextMessage created!' });
+          res.json({ message: 'TextMessage created!',
+                      _id: textMessage._id});
       });
   })
   // get all the textMessages (accessed at GET http://localhost:8080/api/textMessages)
@@ -244,13 +248,23 @@ router.route('/patients')
 // create a patient (accessed at POST http://localhost:8080/api/patients)
 .post(function(req, res) {
     var patient = new Patient();      // create a new instance of the patient model
+    patient._id = new mongoose.Types.ObjectId();
     patient.name = req.body.name;
+    patient.addedBy = req.body.addedBy;
     patient.save(function(err) {
-        if (err)
+        if (err){
             res.send(err);
-        res.json({ message: 'Patient created!' });
+            console.log(err);
+            return;
+          }
+        else{
+          res.json({ message: 'Patient created!',
+                    patient_id: patient._id,
+                    added_by: patient.addedBy});
+        }
     });
 })
+
 // get all the patients (accessed at GET http://localhost:8080/api/patients)
 .get(function(req, res) {
     Patient.find(function(err, patients) {
@@ -261,7 +275,7 @@ router.route('/patients')
 });
 router.route('/patients/:patient_id') // Get a textMessage by his/her ID
 .get(function(req, res) {
-    Patient.findById(req.params.patient_id, function(err, patient) {
+    Patient.findOne({"_id" : req.params.patient_id}, function(err, patient) {
         if (err)
             res.send(err);
         res.json(patient);
@@ -294,15 +308,9 @@ router.route('/conversations')
   // create a conversation (accessed at POST http://localhost:8080/api/conversations)
   .post(function(req, res) {
       var conversation = new Conversation();      // create a new instance of the conversation model
-      /*conversation.patient = Patient.findOne({_id: req.body.patientId})
-        .exec(function(err, patient) {
-          if(err)
-            res.send(err);
-          return patient._id;
-        });*/
       conversation._id = new mongoose.Types.ObjectId();
-      conversation.patient = req.body.patientId;
       conversation.providers.push(req.body.providerId);
+      conversation.patient = req.body.name;
       conversation.save(function(err) {
           if (err)
               res.send(err);
@@ -319,7 +327,7 @@ router.route('/conversations')
   });
 router.route('/conversations/:conversation_id') // Get a textMessage by his/her ID
   .get(function(req, res) {
-      Conversation.findById(req.params.conversation_id, function(err, conversation) {
+      Conversation.findById(req.params.conversation_id).populate('providers').populate('messages').exec(function(err, conversation) {
           if (err)
               res.send(err);
           res.json(conversation);
@@ -329,9 +337,10 @@ router.route('/conversations/:conversation_id') // Get a textMessage by his/her 
       Conversation.findById(req.params.conversation_id, function(err, conversation) {
           if (err)
               res.send(err);
-          conversation.patient = req.body.patiendId;
+          conversation.patient = req.body.patient;
           conversation.providers = req.body.providers;
           conversation.messages = req.body.messages;
+          console.log(conversation);
           conversation.save(function(err) {
               if (err)
                   res.send(err);

@@ -23,7 +23,7 @@ angular.module('appRoutes', ['ngRoute']).config(['$routeProvider', '$locationPro
         })
         .when('/dashboard', {
             templateUrl: 'views/dashboard.html',
-            controller: 'DashboardCtrl'
+            controller: 'DashboardController'
         });
 
     $locationProvider.html5Mode(true);
