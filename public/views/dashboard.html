@@ -1,6 +1,6 @@
 <md-content layout-padding>
   <div ng-cloak layout-gt-sm="row">
-    <div flex-gt-sm="30" flex layout="column">
+    <div flex-gt-sm="30" flex layout="column" layout-padding class="borderedColumn">
       <div layout="row">
         <h2>Patients</h2>
         <span flex></span>
@@ -10,7 +10,7 @@
       </div>
       <md-button class="md-raised" ng-repeat="c in conversations" ng-click="openConversation($index)">{{c.patient}}</md-button>
     </div>
-    <div flex-gt-sm="70" flex>
+    <div flex-gt-sm="70" flex layout-padding class="borderedColumn">
       <h2>Conversation</h2>
       <p>
         Members: <i><span ng-repeat = "p in providersToDisplay">{{p.name}}<span ng-if="!$last">, </span></span></i>
@@ -26,22 +26,25 @@
             </md-menu-item>
           </md-menu-content>
         </md-menu>
-
       </p>
+      <md-divider></md-divider>
+      <div class="scrollableMsgs" ng-show="conversationDisplayed" id="scrollableMsgList">
       <md-list class="md-dense" flex id="conversation">
-        <md-list-item class="md-2-line" ng-repeat="m in msgsToDisplay">
-         <div class="md-list-item-text">
-           <h3>{{m.datetime}}</h3>
-           <p>{{m.message}}</p>
-         </div>
-       </md-list-item>
+        <md-list-item class="md-3-line" ng-repeat="m in msgsToDisplay">
+          <div class="md-list-item-text" layout="column">
+            <h3>{{m.posterName}}</h3>
+            <i><h4>{{m.datetime}}</h4></i>
+            <b><p class="messageText">{{m.message}}</p></b>
+          </div>
+        </md-list-item>
      </md-list>
      <md-divider></md-divider>
      <br/>
-      <md-input-container ng-show="conversationDisplayed" class="md-block">
+      <md-input-container class="md-block">
         <input ng-model="newTextMsg" placeholder="Type new message here..."></input>
         <md-button ng-click="submitTextMessage()" class="md-raised md-primary">Send</md-button>
       </md-input-container>
+    </div>
     </div>
   </div>
 </md-content>

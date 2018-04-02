@@ -66,8 +66,11 @@
       <md-button ng-show="{{isLoggedIn}}" ng-click="logout()" name="Login">
         Log out
       </md-button>
-      <md-button ng-href="/register" name="Register">
+      <md-button ng-show="{{!isLoggedIn}}" ng-href="/register" name="Register">
         Register
+      </md-button>
+      <md-button ng-show="{{isLoggedIn}}" ng-href="/profile" name="Profile">
+        Profile
       </md-button>
     </div>
   </md-tool-bar>

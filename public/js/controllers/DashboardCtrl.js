@@ -9,6 +9,8 @@ angular.module('DashboardCtrl', ['ngAnimate']).controller('DashboardController',
     $scope.msgsToDisplay = [];
     $scope.providersToDisplay = [];
     $scope.allProviders = [];
+    $scope.newTextMsg = "";
+    $scope.objDiv = document.getElementById("scrollableMsgList");
     getConversations();
     Provider.get()
         .then(function (response) {
@@ -48,6 +50,9 @@ angular.module('DashboardCtrl', ['ngAnimate']).controller('DashboardController',
                 console.log(response);
                 $scope.msgsToDisplay = response.data.messages;
                 $scope.providersToDisplay = response.data.providers;
+                setTimeout(function(){
+                  $scope.objDiv.scrollTop = $scope.objDiv.scrollHeight;
+                }, 100);
         }, function (error) {
             $scope.status = 'Unable to load patient data: ' + error.message;
         });
@@ -70,12 +75,15 @@ angular.module('DashboardCtrl', ['ngAnimate']).controller('DashboardController',
       var textMsgData = {};
       textMsgData.postedBy = $scope.profile._id;
       textMsgData.message = $scope.newTextMsg;
+      textMsgData.posterName = $scope.profile.name;
       TextMessage.create(textMsgData)
         .then(function (response) {
           $scope.selectedConversation.messages.push(response.data._id);
           Conversation.update(JSON.stringify($scope.selectedConversation))
             .then(function(resp){
                $scope.openConversation($scope.selectedConversationIndex);
+               $scope.newTextMsg = "";
+               console.log( $scope.objDiv.scrollHeight);
             });
         }, function (error) {
           $scope.status = 'Unable to create new patient: ' + error.message;

@@ -139,6 +139,7 @@ router.route('/text-messages')
       var date = new Date();
       textMessage.datetime = date;
       textMessage.postedBy = req.body.postedBy;
+      textMessage.posterName = req.body.posterName;
       textMessage.save(function(err) {
           if (err)
               res.send(err);

@@ -1,4 +1,25 @@
-/* The Close Button (x) */
+.centerContainer {
+  width: 100%;
+  align-content: center;
+  text-align: center;
+}
+
+.circleLogo {
+  text-align: center;
+  border: 10px solid #505050;
+  height: 300px;
+  width: 300px;
+  border-radius: 150px;
+  margin: auto;
+    display: table;
+}
+
+.centeredText {
+  color: #505050;
+  display: table-cell;
+  vertical-align: middle;
+}
+
 .close {
     position: absolute;
     right: 25px;
@@ -16,4 +37,20 @@
 
 .md-toolbar-tools {
   background-color: #F0F0F0 !important;
+}
+
+.scrollableMsgs {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.borderedColumn {
+  border: 1px solid #D0D0D0;
+  border-radius: 5px;
+  margin: 10px;
+  background-color: #FDFFF2;
+}
+
+.messageText {
+  padding-bottom: 5px;
 }
